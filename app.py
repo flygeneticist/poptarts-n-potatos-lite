@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, render_template
 
 app = Flask(__name__)
 
@@ -8,11 +8,14 @@ app = Flask(__name__)
 # routes
 @app.route('/')
 def home():
-    return 'I\'m a home page';
+    posts = [   {'title': 'Post #1', 'url': 'post-1', 'summary':'This is a cool post about...'},
+                {'title': 'Post #2', 'url': 'post-1', 'summary':'This is a cool post about somthing else...'}
+            ]
+    return render_template('home.html', posts=posts);
 
 @app.route('/blog/<post>')
 def blog_post(post):
-    return 'Blog post: %s' % post
+    return render_template('blogPost.html', post=post)
 
 @app.route('/admin')
 def admin_dash():

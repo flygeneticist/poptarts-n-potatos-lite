@@ -1,6 +1,8 @@
 from flask import Flask, request, redirect, render_template
+from flask.ext.bootstrap import Bootstrap
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 # hooks for routes
 

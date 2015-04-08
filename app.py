@@ -1,11 +1,9 @@
 from flask import Flask, request, redirect, render_template
-from flask.ext.bootstrap import Bootstrap
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required
 
 app = Flask(__name__)
-bootstrap = Bootstrap(app)
 
 # hooks for routes
 

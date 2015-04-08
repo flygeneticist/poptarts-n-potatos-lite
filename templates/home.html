@@ -1,10 +1,16 @@
-{% extends "bootstrap/base.html" %}
-
-<img src="/static/PoptartsAndPotatosLogo.png">
-<ul>
-{% for post in posts %}
-    <li><a href="/blog/{{post['url']}}"><h3>{{ post['title'] }}</h3></a>
-        <h4>{{ post['summary'] }}</h4>
-    </li>
-{% endfor %}
-</ul>
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div id="posts-list" class="container">
+        <ul>
+        {% for post in posts %}
+            <li>
+                <div>
+                    <a href="/blog/{{post['url']}}"><h3>{{ post['title'] }}</h3></a>
+                    <h4>{{ post['summary'] }}</h4>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

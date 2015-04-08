@@ -1,4 +1,10 @@
-{% extends "bootstrap/base.html" %}
-
-<h2>{{ post['title'] }}</h2>
-{{ post['content']|safe }}
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div id="post-box" class="container">
+        <h2>{{ post['title'] }}</h2>
+        <div id="post-contents" class="container">
+            {{ post['content']|safe }}
+        </div>
+    </div>
+{% endblock %}

@@ -12,12 +12,14 @@
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
     <body>
-        <header>
-            <img src="/static/PoptartsAndPotatosLogo.png">
-        </header>
-        {% block content %}{% endblock %}
-        <footer>
-            Footer Stuff....
-        </footer>
+        <div id="main" class="container">
+            <header>
+                <img src="/static/PoptartsAndPotatosLogo.png">
+            </header>
+            {% block content %}{% endblock %}
+            <footer>
+                Footer Stuff....
+            </footer>
+        </div>
     </body>
 </html>

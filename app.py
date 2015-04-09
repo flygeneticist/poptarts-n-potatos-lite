@@ -4,7 +4,11 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import Required
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "hahahahahaha"
+
+# app config defaults and override from file
+DEBUG = True
+TESTING = True
+app.config.from_object('config.DevelopmentConfig')
 
 # hooks for routes
 
@@ -57,5 +61,4 @@ class LoginForm(Form):
 
 # run the app
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run(debug=DEBUG)

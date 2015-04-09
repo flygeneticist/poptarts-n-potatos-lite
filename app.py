@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, session
 from flask.ext.wtf import Form
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import Required
@@ -30,10 +30,15 @@ def admin_dash():
     else:
         return redirect('/admin/login')
 
-@app.route('/admin/login')
+@app.route('/admin/login', methods=['GET','POST'])
 def login():
+    session['user'] = None
     form = LoginForm()
-    return render_template('login.html', form=form)
+    if form.validate_on_submit():
+        session['user'] = form.email.data
+        return redirect('/')
+    else:
+        return render_template('login.html', form=form)
 
 # error handlers
 @app.errorhandler(404)

@@ -2,7 +2,7 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <div class="container">
-        <form id="loginForm" class="form" method="POST" action="#">
+        <form id="loginForm" class="form" method="POST" action="/admin/login">
             {{ form.email.label }} {{ form.email() }}<br>
             {{ form.password.label }} {{ form.password() }}<br>
             {{ form.submit() }}

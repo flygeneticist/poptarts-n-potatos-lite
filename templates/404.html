@@ -2,5 +2,5 @@
 {% block title %}404{% endblock %}
 {% block content %}
     <h2>Darn! The page you're looking for isn't here.</h2>
-    <img src="/static/PoptartCat.jpg">
+    <img src="{{ url_for('static', filename='images/PoptartCat.jpg') }}">
 {% endblock %}

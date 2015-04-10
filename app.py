@@ -4,10 +4,10 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import Required
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Shell, Manager
+from flask.ext.migrate import Migrate, MigrateCommand
 
 
 app = Flask(__name__)
-manager = Manager(app)
 
 # app config defaults and override from file
 DEBUG = True
@@ -18,6 +18,11 @@ app.config.from_object('config.DevelopmentConfig')
 # setup database connection and create tables
 db = SQLAlchemy(app)
 db.create_all()
+migrate = Migrate(app, db)
+
+# CLI manager
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 # hooks for routes
 

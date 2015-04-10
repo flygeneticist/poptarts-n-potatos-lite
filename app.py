@@ -32,18 +32,12 @@ manager.add_command('db', MigrateCommand)
 @app.route('/home')
 def index():
     posts = Post.query.all()
-    res = {}
-    for post in posts:
-        res[post.id] = {
-            'title': post.title,
-            'content': str(post.content)
-        }
-    return render_template('home.html', posts=jsonify(res));
+    return render_template('home.html', posts=posts);
 
 @app.route('/blog/<post>')
 def blog_post(post):
-    res = Post.query.get_or_404(post)
-    return render_template('blogPost.html', post=jsonify(res))
+    res = Post.query.filer_by(url=post).first_or_404()
+    return render_template('blogPost.html', post=res)
 
 @app.route('/admin')
 def admin_dash():
@@ -93,6 +87,8 @@ class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
+    summary = db.Column(db.Text())
+    url = db.Column(db.String(255), unique=True)
     content = db.Column(db.Text())
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
     comments = db.relationship('Comment', backref='Post')

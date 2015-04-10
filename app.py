@@ -73,6 +73,44 @@ class LoginForm(Form):
     password = PasswordField('Password', validators=[Required()])
     submit = SubmitField('Submit')
 
+# Database Models
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255))
+    password = db.Column(db.String(255))
+    posts = db.relationship('Post', backref='User')
+
+    def __repr__(self):
+        return '<Post %d>' % self.id
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+    content = db.Column(db.Text())
+    author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comments = db.relationship('Comment', backref='Post')
+
+    def __repr__(self):
+        return '<Post %d>' % self.id
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text())
+    author = db.Column(db.String(255))
+    parentId = db.Column(db.Integer, db.ForeignKey('posts.id'))
+
+    def __repr__(self):
+        return '<Comment %d>' % self.id
+
+# Setup shell integration
+def make_shell_context():
+    return dict(app=app, db=db, User=User, Post=Post, Comment=Comment)
+manager.add_command("shell", Shell(make_context=make_shell_context))
+
+
 # run the app
 if __name__ == '__main__':
     manager.run()

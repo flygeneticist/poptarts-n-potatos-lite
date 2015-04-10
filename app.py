@@ -36,7 +36,7 @@ def index():
 
 @app.route('/blog/<post>')
 def blog_post(post):
-    res = Post.query.filer_by(url=post).first_or_404()
+    res = Post.query.filter_by(url=post).first_or_404()
     return render_template('blogPost.html', post=res)
 
 @app.route('/admin')
